@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="TCF.Func.LicenseDataSynchronizer/TCF.Func.LicenseDataSynchronizer.csproj" Id="ed083780-ced6-4389-98ef-3027b0b244dc" />
+  <Project Path="TCF.Lib.ALSO.Client/TCF.Lib.ALSO.Client.csproj" Id="4a614f8c-6da3-48ec-9700-8bbafc669243" />
+  <Project Path="TCF.WinApp.TestRunner/TCF.WinApp.TestRunner.csproj" Id="f84c43ee-996f-4c06-99fd-9fff281fdf2c" />
+</Solution>
