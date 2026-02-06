@@ -1,4 +1,3 @@
-using System;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Logging;
 using TCF.Func.LicenseDataSynchronizer.Helpers;
@@ -16,12 +15,17 @@ public class LicenseSychronizerFunction
 
     [Function(nameof(LicenseSychronizerFunction))]
     [FixedDelayRetry(1, "00:00:10")]
-    public void Run([TimerTrigger("0 */5 * * * *")] TimerInfo myTimer)
+    public async Task Run([TimerTrigger("0 */15 * * * *")] TimerInfo myTimer)
     {
         _logger.LogInformation("C# Timer trigger function executed at: {executionTime}", DateTime.Now);
 
+        // Step 1: Retrieve the license data
         var licenseData = LicenseInfoRetriever.GetLicenseData(_logger);
         _logger.LogInformation("Retrieved {licenseCount} license records.", licenseData.Count);
+
+        // Step 2: Create/Update license data in DB
+        _logger.LogInformation("Starting data synchronization to the database.");
+        await DbPersister.SyncronizeDataAsync(licenseData, _logger);
 
         if (myTimer.ScheduleStatus is not null)
         {

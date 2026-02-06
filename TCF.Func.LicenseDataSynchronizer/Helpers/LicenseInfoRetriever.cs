@@ -20,11 +20,13 @@ namespace TCF.Func.LicenseDataSynchronizer.Helpers
                 var apiClient = new ApiClient(apiUrl);
                 IAuthenticateApi authApi = new AuthenticateApi(apiClient);
 
+                //apiClient.AddDefaultHeader(" Ocp-Apim-Subscription-Key", "8dac2f8085d744178694ea40ac48dc1a");
+                
                 // Authenticate and get session token with dummy credentials
                 string sessionToken = authApi.GetSessionTokenPost(new AuthenticateRequest
                 {
-                    Username = "dummy_username",
-                    Password = "dummy_password"
+                    Username = "your_username",
+                    Password = "your_password"
                 });
                 logger.LogInformation("Successfully authenticated with the License Data API.");
 
