@@ -1,6 +1,7 @@
 using System;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Logging;
+using TCF.Func.LicenseDataSynchronizer.Helpers;
 
 namespace TCF.Func.LicenseDataSynchronizer;
 
@@ -18,7 +19,10 @@ public class LicenseSychronizerFunction
     public void Run([TimerTrigger("0 */5 * * * *")] TimerInfo myTimer)
     {
         _logger.LogInformation("C# Timer trigger function executed at: {executionTime}", DateTime.Now);
-        
+
+        var licenseData = LicenseInfoRetriever.GetLicenseData(_logger);
+        _logger.LogInformation("Retrieved {licenseCount} license records.", licenseData.Count);
+
         if (myTimer.ScheduleStatus is not null)
         {
             _logger.LogInformation("Next timer schedule at: {nextSchedule}", myTimer.ScheduleStatus.Next);
